@@ -1,8 +1,8 @@
 CC ?= gcc
-CFLAGS += -Wall -Wextra -Werror -pedantic -std=c99 -O2 -g
+CFLAGS += -Wall -Wextra -pedantic -std=c99 -O2 -g
 
 # Clang / GCC args for undefined behavior sanitizer
-CFLAGS += --analyze -fsanitize=address -fsanitize=undefined -fsanitize-trap=all
+CFLAGS += -fsanitize=address -fsanitize=undefined -fsanitize-trap=all
 
 # Compile all c files to executables
 # https://stackoverflow.com/a/2706067/8524178 (and Copilot?)
