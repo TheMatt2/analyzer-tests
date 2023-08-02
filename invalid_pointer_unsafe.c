@@ -1,7 +1,6 @@
 // Example of accessing a hard-coded pointer in a "safe" manner.
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int *ptr = (int *) 0x12345678;
 

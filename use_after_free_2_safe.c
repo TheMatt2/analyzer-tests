@@ -15,7 +15,7 @@ void sneaky_swap(uintptr_t *a, uintptr_t *b, int method) {
         // sonarlint sees through this
         tmp = tmp ^ tmp; // zero sneakily
         tmp = tmp ^ *a; // tmp = (orig) a
-        *a = *a ^ *b; // a = combine together
+        *a = *a ^ *b; // a = combined
         tmp = *a ^ tmp; // tmp = (orig) b
         *b = *a ^ tmp; // b = (orig) a
         *a = *a ^ *b; // a = (orig) b

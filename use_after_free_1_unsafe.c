@@ -1,7 +1,6 @@
 // example of freeing a pointer and then accessing it in a safe manner
 
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {

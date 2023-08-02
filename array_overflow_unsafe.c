@@ -1,7 +1,6 @@
 // Example of checking if a point is NULL before dereferencing it.
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int int_arr[] = {1, 2, 3};
 
