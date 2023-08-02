@@ -1,1 +1,9 @@
-/.vscode
+# General
+.vscode/
+.idea/
+*.dSYM
+.DS_Store
+
+# Compiled binaries
+*_safe
+*_unsafe
