@@ -6,23 +6,7 @@ https://gcc.gnu.org/onlinedocs/gcc-11.1.0/gcc/Warning-Options.html#index-Warray-
 
 https://devblogs.microsoft.com/cppblog/makefile-tools-december-2021-update-problem-matchers-and-compilation-database-generation/
 
-Static Analyzer Test Results Pass 1
-
-| Test                | Sonarlint | Clang 11.0.3 | Clang 14.0.0 | GCC 13.2.0 | icx 2023.1.0 | msvc v19.35 | ChatGPT |
-|---------------------|-----------|--------------|--------------|------------|--------------|-------------|---------|
-| Array Overflow      |           | ✅           | ✅           | ✅         | ✅           | ✅          | ✅      |
-| Concat Overflow     |           |              |              |            |              | ✅*         | ✅*     |
-| Use After Free      | ✅        |              |              | ✅         |              | ✅          | ✅      |
-| Use After Free Hard | ✅        |              |              |            |              |             | ✅      |
-| Null Pointer        | ✅        |              |              |            |              |             | ✅*     |
-| Invalid Pointer     |           |              |              |            |              |             | ✅*     |
-| Uninitialized Value | ✅*       |              |              | ✅         |              |             |         |
-| printf Overflow     |           |              |              |            |              | ✅          |         |
-| malloc Error        |           |              |              |            |              | ✅          |         |
-| Quote Overflow      | ✅        |              |              |            |              |             |         |
-| Quote Overflow Hard |           |              |              |            |              |             |         |
-
-Static Analyzer Test Results Pass 2
+Static Analyzer Test Results
 
 | Test                | Sonarlint | Clang 16.0.0 | GCC 13.2.0 | icx 2023.1.0 | msvc v19.35 | ChatGPT |
 |---------------------|-----------|--------------|------------|--------------|-------------|---------|
