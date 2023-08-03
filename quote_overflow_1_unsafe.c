@@ -23,8 +23,8 @@ char msg[] = "\1\2\3\4";
  * Returns the number of characters written to buf, or
  * -1 if buf is too small.
  */
-ssize_t quote_s(const char *const str, size_t str_length,
-                char *const buf, size_t buf_length);
+ssize_t quote_s(const char *str, size_t str_length,
+                char *buf, size_t buf_length);
 
 int main(int argc, char *argv[]) {
     (void) argc;
