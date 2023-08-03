@@ -8,21 +8,21 @@ https://devblogs.microsoft.com/cppblog/makefile-tools-december-2021-update-probl
 
 Static Analyzer Test Results
 
-| Test                | Sonarlint | Clang 16.0.0 | GCC 13.2.0 | icx 2023.1.0 | msvc v19.35 | ChatGPT |
-|---------------------|-----------|--------------|------------|--------------|-------------|---------|
-| Array Overflow      | ✅        | ✅           | ✅         | ✅           | ✅          | ✅      |
-| Concat Overflow     |           |              |            |              | ✅*         | ✅*     |
-| Use After Free 1    | ✅        | ✅           | ✅         | ✅           | ✅          | ✅      |
-| Use After Free 2    | ✅        | ✅           | ✅*        | ✅           |             | ✅      |
-| Null Pointer        | ✅        | ✅           | ✅         | ✅           |             | ✅*     |
-| Invalid Pointer     |           |              |            |              |             | ✅*     |
-| Uninitialized Value | ✅*       | ✅*          | ✅         | ✅*          |             |         |
-| printf Overflow     |           |              |            |              | ✅          |         |
-| malloc Error        |           |              | ✅         |              | ✅          |         |
-| String Literal      |           |              | ✅         |              |             | ✅*     |
-| Quote Overflow 1    | ✅        |              | -          |              |             |         |
-| Quote Overflow 2    | ✅        |              |            |              |             |         |
-| Quote Overflow 3    |           |              |            |              |             |         |
+| Test                | Sonarlint v3.19.2 | CLion 2023.2 | Clang 16.0.0 | GCC 13.2.0 | icx 2023.1.0 | msvc v19.35 | ChatGPT |
+|---------------------|-------------------|--------------|--------------|------------|--------------|-------------|---------|
+| Array Overflow      | ✅                | ✅           | ✅           | ✅         | ✅           | ✅          | ✅      |
+| Concat Overflow     |                   |              |              |            |              | ✅*         | ✅*     |
+| Use After Free 1    | ✅                | ✅           | ✅           | ✅         | ✅           | ✅          | ✅      |
+| Use After Free 2    | ✅                | ✅*          | ✅           | ✅*        | ✅           |             | ✅      |
+| Null Pointer        | ✅                |              | ✅           | ✅         | ✅           |             | ✅*     |
+| Invalid Pointer     |                   |              |              |            |              |             | ✅*     |
+| Uninitialized Value | ✅*               |              | ✅*          | ✅         | ✅*          |             |         |
+| printf Overflow     |                   |              |              |            |              | ✅          |         |
+| malloc Error        |                   |              |              | ✅         |              | ✅          |         |
+| String Literal      |                   |              |              | ✅         |              |             | ✅*     |
+| Quote Overflow 1    | ✅                |              |              | -          |              |             |         |
+| Quote Overflow 2    | ✅                |              |              |            |              |             |         |
+| Quote Overflow 3    |                   |              |              |            |              |             |         |
 
 `*` True Postive and False Positive
 `-` Issued Complexity Warning
