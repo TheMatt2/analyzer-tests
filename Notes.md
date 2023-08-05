@@ -20,6 +20,8 @@ Static Analyzer Test Results
 | printf Overflow     |                   |             |              |              |            |              | ✅          |         |
 | malloc Error        |                   |             |              |              | ✅         |              | ✅          |         |
 | String Literal      |                   |             |              |              | ✅         |              |             | ✅*     |
+| Divide by Zero 1    | ✅                |             | ✅           | ✅           | ✅         | ✅           | ✅          |         |
+| Divide by Zero 2    |                   |             |              |              |            |              |             | ✅*     |
 | Quote Overflow 1    | ✅                |             |              |              | -          |              |             |         |
 | Quote Overflow 2    | ✅                |             |              |              |            |              |             |         |
 | Quote Overflow 3    |                   |             |              |              |            |              |             |         |
