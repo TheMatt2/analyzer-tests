@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[]) {
 
-    char *user_string;
+    const char *user_string;
 
     if (argc >= 2) {
         user_string = "World, Hello! %s";
