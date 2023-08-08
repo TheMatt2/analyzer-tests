@@ -46,7 +46,7 @@ Sanitizer Test Results
 
 Version 14.0.0
 
-    --analyze -Wall -Wextra -Werror -pedantic -std=c99 -O2 -g
+    --analyze --analyzer-output text -Xanalyzer -analyzer-checker=unix -Xanalyzer -analyzer-checker=security -Wall -Wextra -Werror -pedantic -std=c99 -O2 -g
 
 ```
 docker run -it --rm -v $(pwd):/magic -w /magic ubuntu
