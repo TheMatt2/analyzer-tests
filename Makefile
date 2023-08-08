@@ -2,8 +2,7 @@ CC ?= gcc
 CFLAGS += -Wall -Wextra -pedantic -std=c99 -g
 
 # Clang / GCC args for undefined behavior sanitizer
-CFLAGS += -O1 -fsanitize=address -fsanitize=undefined -fsanitize-trap=all -fno-optimize-sibling-calls
-CFLAGS += -fno-omit-frame-pointer -fsanitize-address-use-after-return=always
+CFLAGS += -O1 -fsanitize=address -fsanitize=undefined -fsanitize-trap=all -fno-optimize-sibling-calls -fno-omit-frame-pointer
 
 # Compile all c files to executables
 # https://stackoverflow.com/a/2706067/8524178 (and Copilot?)
