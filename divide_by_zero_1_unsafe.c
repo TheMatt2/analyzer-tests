@@ -3,7 +3,7 @@
 #define A 10
 #define B 10
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
     (void) argc;
     (void) argv;
 
