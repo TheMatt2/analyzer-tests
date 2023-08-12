@@ -8,7 +8,10 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *ptr = malloc(0);
-    if (!ptr) {perror("malloc"); return 1;}
+    if (!ptr) {
+        perror("malloc");
+        return 1;
+    }
 
     printf("ptr is %p\n", (void *) ptr);
 

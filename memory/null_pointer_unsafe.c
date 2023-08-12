@@ -11,7 +11,10 @@ int main(int argc, char *argv[]) {
     // allocate depending on argc
     if (argc != 1) {
         ptr = malloc(sizeof(int));
-        if (!ptr) {perror("malloc"); return 1;}
+        if (!ptr) {
+            perror("malloc");
+            return 1;
+        }
     }
 
     *ptr = 10;

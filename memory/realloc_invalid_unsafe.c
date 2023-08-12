@@ -10,7 +10,10 @@ int main(int argc, char *argv[]) {
     int val = 45;
 
     int *ptr = realloc(&val, sizeof(int) * 4);
-    if (!ptr) {perror("realloc"); return 1;}
+    if (!ptr) {
+        perror("realloc");
+        return 1;
+    }
 
     *ptr = 99;
     printf("%p = %d\n", (void *) ptr, *ptr);

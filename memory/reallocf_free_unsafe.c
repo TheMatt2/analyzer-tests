@@ -9,7 +9,10 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *ptr1 = malloc(sizeof(int));
-    if (!ptr1) {perror("malloc"); return 1;}
+    if (!ptr1) {
+        perror("malloc");
+        return 1;
+    }
 
     *ptr1 = 45;
 
@@ -19,7 +22,11 @@ int main(int argc, char *argv[]) {
     int *ptr2 = reallocf(ptr1, SIZE_MAX);
 
     // double free pointer
-    if (!ptr2) {perror("reallocf"); free(ptr1); return 1;}
+    if (!ptr2) {
+        perror("reallocf");
+        free(ptr1);
+        return 1;
+    }
 
     printf("%p = %d\n", (void *) ptr2, *ptr2);
 

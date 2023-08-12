@@ -8,10 +8,17 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *ptr_a = malloc(sizeof(int));
-    if (!ptr_a) {perror("malloc"); return 1;}
+    if (!ptr_a) {
+        perror("malloc");
+        return 1;
+    }
 
     int *ptr_b = malloc(sizeof(int));
-    if (!ptr_b) {free(ptr_a); perror("malloc"); return 1;}
+    if (!ptr_b) {
+        free(ptr_a);
+        perror("malloc");
+        return 1;
+    }
 
     *ptr_a = 10;
     *ptr_b = 42;

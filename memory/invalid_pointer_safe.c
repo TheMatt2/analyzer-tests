@@ -10,7 +10,10 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *tmp_ptr = malloc(sizeof(int));
-    if (!tmp_ptr) {perror("malloc"); return 1;}
+    if (!tmp_ptr) {
+        perror("malloc");
+        return 1;
+    }
 
     if (ptr != tmp_ptr) {
         ptr = tmp_ptr;

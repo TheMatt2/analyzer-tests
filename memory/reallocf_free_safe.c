@@ -9,14 +9,20 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *ptr1 = malloc(sizeof(int));
-    if (!ptr1) {perror("malloc"); return 1;}
+    if (!ptr1) {
+        perror("malloc");
+        return 1;
+    }
 
     *ptr1 = 45;
 
     printf("%p = %d\n", (void *) ptr1, *ptr1);
 
     int *ptr2 = reallocf(ptr1, SIZE_MAX);
-    if (!ptr2) {perror("reallocf"); return 1;}
+    if (!ptr2) {
+        perror("reallocf");
+        return 1;
+    }
 
     printf("%p = %d\n", (void *) ptr2, *ptr2);
 

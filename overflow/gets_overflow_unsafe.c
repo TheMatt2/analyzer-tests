@@ -12,7 +12,10 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (!gets(buf)) {perror("gets"); return 1;}
+    if (!gets(buf)) {
+        perror("gets");
+        return 1;
+    }
 
     printf("Input: %s\n", buf);
     return 0;

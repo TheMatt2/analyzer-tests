@@ -8,11 +8,13 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int x = 113;
+
 #if A != B
     int y = x / (B - A);
 #else
     int y = x / (B + A);
 #endif
+
     printf("Your number is %d\n", y);
     return 0;
 }

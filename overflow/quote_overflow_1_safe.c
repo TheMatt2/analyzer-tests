@@ -31,7 +31,10 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     char *buf = malloc(sizeof(msg) * 2);
-    if (!buf) {perror("malloc"); return 1;}
+    if (!buf) {
+        perror("malloc");
+        return 1;
+    }
 
     ssize_t len = quote_s(msg, sizeof(msg), buf, sizeof(msg) * 2);
 

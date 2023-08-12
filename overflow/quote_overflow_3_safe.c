@@ -20,7 +20,10 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     char *buf = malloc((sizeof(msg) - 1) * 4 + 3);
-    if (!buf) {perror("malloc"); return 1;}
+    if (!buf) {
+        perror("malloc");
+        return 1;
+    }
 
     quote_s(msg, sizeof(msg), buf);
 
