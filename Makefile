@@ -7,11 +7,11 @@ CFLAGS += -O1 -fsanitize=address -fsanitize=undefined -fsanitize-trap=all -fno-o
 # Compile all c files to executables
 # https://stackoverflow.com/a/2706067/8524178 (and Copilot?)
 
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard common_user_error/*.c logical/*.c memory/*.c overflow/*.c undefined_behavior/*.c)
 PROGS = $(patsubst %.c, %, $(SRCS))
 
 .PHONY: all
-all: $(patsubst %.c, %, $(wildcard *.c))
+all: $(PROGS)
 
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@
