@@ -24,7 +24,8 @@
 | Stack Return 1            | 3 🔴     | Undefined Behavior    |
 | Stack Return 2            | 3 🔴     | Undefined Behavior    |
 | String Literal Modify     | 2 🟠     | Undefined Behavior    |
-| Uninitialized Value       | 2 🟠     | Undefined Behavior    |
+| Uninitialized Value 1     | 2 🟠     | Undefined Behavior    |
+| Uninitialized Value 2     | 2 🟠     | Undefined Behavior    |
 | Malloc Error              | 1 🟡     | Common User Error     |
 | Switch Fall Through       | 1 🟡     | Common User Error     |
 
