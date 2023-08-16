@@ -1,5 +1,8 @@
-// Example of using printf to print a non-null terminated string,
-// which will cause a buffer overflow.
+/* Printf String Overflow Unsafe
+ *
+ * Example of passing a non-null terminated string to printf(),
+ * which will cause a crash.
+ */
 
 #include <stdio.h>
 

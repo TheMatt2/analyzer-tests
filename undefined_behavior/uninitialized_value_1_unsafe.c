@@ -1,4 +1,9 @@
-// example of freeing a pointer and then accessing it in a safe manner
+/* Uninitalized Value 1 Unsafe
+ *
+ * Example of reading an uninitalized value,
+ * which can cause externally visible undefined
+ * behavior.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

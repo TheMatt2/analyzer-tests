@@ -1,3 +1,12 @@
+/* Printf Format Overflow Safe
+ *
+ * Example of *not* passing a user string to printf as the format string,
+ * which won't cause a crash.
+ *
+ * A user being able to pass a format string to printf can cause
+ * a crash, and read stack memory to stdout.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {

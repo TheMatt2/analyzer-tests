@@ -1,4 +1,9 @@
-// example of checking malloc result
+/* Malloc Error Safe
+ *
+ * Example of correctly checking the result of malloc()
+ * is NULL, and exiting if this occurs.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

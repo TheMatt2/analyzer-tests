@@ -1,27 +1,33 @@
-// example of how switch fall through can cause issues
-// in a program
+/* Switch Fall-Through Unsafe
+ *
+ * Example of code flow falling through a switch statement,
+ * when the programmer likely intended for each case to have a break.
+ *
+ * Unlike most of the other tests here, there is nothing wrong
+ * with having code flow fall through, except it is a common mistake
+ * for programmers to make.
+ */
 
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
     (void) argv;
 
-    int x = argc;
-    int y = x;
+    int x;
 
-    switch (x) {
+    switch (argc) {
         case 0:
-            y *= 8;
+            x = 8;
         case 1:
-            y *= 5;
+            x = 5;
         case 2:
-            y *= 3;
+            x = 3;
         default:
-            y *= 2;
+            x = 2;
             break;
     }
 
-    printf("For x = %d, y = %d\n", x, y);
+    printf("x = %d\n", x);
 
     return 0;
 }

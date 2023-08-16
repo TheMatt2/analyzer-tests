@@ -1,4 +1,13 @@
-// example of not checking malloc result, and therefore pointer maybe null
+/* Malloc Zero Access Unsafe
+ *
+ * Example of using a pointer from Malloc with a 0 size,
+ * which will cause a crash.
+ *
+ * Calling malloc() with a zero sized argument is not,
+ * itself, an error. However, this is not portable as POSIX
+ * allows malloc() to return either a null pointer, or another
+ * pointer that it is undefined behavior to access.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

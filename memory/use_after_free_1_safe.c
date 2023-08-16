@@ -1,4 +1,7 @@
-// example of freeing a pointer and then accessing it in a safe manner
+/* Use After Free 1 Safe
+ *
+ * Example of *not* freeing a pointer twice, which won't cause a crash.
+ */
 
 #include <stdio.h>
 #include <stdint.h>

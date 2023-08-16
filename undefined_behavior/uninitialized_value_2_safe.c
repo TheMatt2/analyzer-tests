@@ -1,4 +1,9 @@
-// example of an uninitalize value in a switch statement
+/* Uninitalized Value 2 Safe
+ *
+ * Example of *not* reading an uninitalized value,
+ * which can't cause externally visible undefined
+ * behavior.
+ */
 
 #include <stdio.h>
 

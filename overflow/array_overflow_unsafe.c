@@ -1,4 +1,7 @@
-// Example of checking if a point is NULL before dereferencing it.
+/* Array Overflow Unsafe
+ *
+ * Example of accessing values outside of an array, which will cause a crash.
+ */
 
 #include <stdio.h>
 

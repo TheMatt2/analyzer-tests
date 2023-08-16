@@ -1,3 +1,12 @@
+/* Scanf Overflow Unsafe
+ *
+ * Example of scanf to get user input that can overflow the buffer,
+ * which will cause a crash.
+ *
+ * Calling scanf with an unbounded %s format string is susceptible to a
+ * buffer overflow.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {

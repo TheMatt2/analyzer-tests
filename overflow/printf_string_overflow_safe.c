@@ -1,4 +1,8 @@
-// Example of using printf to print a null terminated string
+/* Printf String Overflow Safe
+ *
+ * Example of *not* passing a non-null terminated string to printf(),
+ * which won't cause a crash.
+ */
 
 #include <stdio.h>
 

@@ -1,4 +1,14 @@
-// demo of a faulty program that returns a stack pointer
+/* Stack Return 1 Unsafe
+ *
+ * Example of returning a stack pointer from a function,
+ * which will cause a crash.
+ *
+ * Returning a stack pointer from a function will
+ * always result in an invalid pointer.
+ *
+ * A string literal, on the otherhand, will always have a lifespan
+ * of the process.
+ */
 
 #include <stdio.h>
 

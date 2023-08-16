@@ -1,3 +1,11 @@
+/* Gets Overflow Unsafe
+ *
+ * Example of using the gets() function, which will cause a crash.
+ *
+ * Use "data.txt" as stdin to prevent the program from waiting
+ * for input.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {

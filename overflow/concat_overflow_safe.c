@@ -1,4 +1,8 @@
-// example of concatenating strings in a way that won't cause a segfault
+/* Concat Overflow Safe
+ *
+ * Example of concatenating two strings *not* past the end of their buffer,
+ * which won't cause a crash.
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -12,6 +16,8 @@ int main(int argc, char *argv[]) {
 
     str1[6] = '\0'; // str1 is now "Hello" instead of "Hello There!"
 
-    printf("%s\n", strcat(str1, str2));
+    strcat(str1, str2);
+    printf("str1: %s\n", str1);
+    printf("str2: %s\n", str2);
     return 0;
 }

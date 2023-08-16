@@ -1,4 +1,11 @@
-// Example of accessing a hard-coded pointer in a "safe" (if useless) manner.
+/* Invalid Pointer Safe
+ *
+ * Example of *not* accessing a hardcoded pointer, which won't cause a crash.
+ *
+ * Example of dereferencing a pointer that is hardcoded into the file.
+ * While accessing a hardcoded pointer may be valid in the context
+ * of some embedded systems, it is not valid for a standard unix system.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

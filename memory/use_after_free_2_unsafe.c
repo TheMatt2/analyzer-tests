@@ -1,4 +1,10 @@
-// example of freeing a pointer and then accessing it in a safe manner
+/* Use After Free 2 Unsafe
+ *
+ * Example of freeing a pointer twice, which will cause a crash.
+ *
+ * Intentionally making it difficult for the compiler to see
+ * how the pointers are being used.
+ */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -18,7 +24,6 @@ void sneaky_swap(uintptr_t *a, uintptr_t *b, int method) {
         tmp = *a ^ tmp; // tmp = (orig) b
         *b = *a ^ tmp; // b = (orig) a
         *a = *a ^ *b; // a = (orig) b
-
     } else {
         // simple version: compiler can probably see what happening
         tmp = *a;

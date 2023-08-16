@@ -1,4 +1,8 @@
-// example of not checking malloc result, and therefore pointer maybe null
+/* Malloc Error Unsafe
+ *
+ * Example of not checking if the result of malloc()
+ * is NULL, which can cause a NULL pointer to be dereferenced.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

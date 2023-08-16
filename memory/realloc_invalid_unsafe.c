@@ -1,4 +1,8 @@
-// example of freeing a pointer and then accessing it in a safe manner
+/* Realloc Invalid Unsafe
+ *
+ * Example of using realloc() to change the size of a non-heap pointer,
+ * which will cause a crash.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>

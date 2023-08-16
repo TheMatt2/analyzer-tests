@@ -1,3 +1,12 @@
+/* Scanf Overflow Safe
+ *
+ * Example of scanf to get user input that can *not* overflow the buffer,
+ * which won't cause a crash.
+ *
+ * Calling scanf with an unbounded %s format string is susceptible to a
+ * buffer overflow.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
@@ -12,7 +21,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // tad insane what it takes to make scanf safe
+    // Create scanf format string based on the size of buf
     // https://stackoverflow.com/a/1621973/8524178
     char format[32];
 

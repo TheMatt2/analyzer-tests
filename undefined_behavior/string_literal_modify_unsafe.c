@@ -1,4 +1,11 @@
-// example of modifying a string literal
+/* String Literal Modify Unsafe
+ *
+ * Example of modifying a string literal,
+ * which can cause a crash.
+ *
+ * A string literal is defined to always be
+ * constant.
+ */
 
 #include <stdio.h>
 

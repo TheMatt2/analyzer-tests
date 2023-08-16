@@ -1,12 +1,19 @@
+/* Divide by Zero 2 Unsafe
+ *
+ * Example of potentially dividing by zero, which would cause a crash.
+ *
+ * Using argc to decide if an a divide by zero occurs,
+ * to see if a warning is produced on the possibility of
+ * a crash.
+ */
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-    (void) argc;
     (void) argv;
 
-    int x = 113;
-    int y = x / (argc - 1);
+    int x = 113 / (argc - 1);
 
-    printf("Your number is %d\n", y);
+    printf("x = %d\n", x);
     return 0;
 }

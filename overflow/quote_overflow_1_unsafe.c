@@ -1,4 +1,17 @@
-// "quote" a string in a way that is not inherently safe
+/* Quote Overflow 1 Unsafe
+ *
+ * Example of a string quoting function with a buffer overflow,
+ * which will cause a crash.
+ *
+ * This string quoting function is meant to represent a more
+ * complex string manipulation algorithm that could have
+ * a non-obvious buffer overflow.
+ *
+ * The string quoting quotes the string in a
+ * manner where the output string must have size (including null char):
+ *
+ *  m = (n - 1) * 4 + 3
+ */
 
 #include <ctype.h>
 #include <stdio.h>

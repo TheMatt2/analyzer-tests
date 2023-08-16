@@ -1,4 +1,8 @@
-// example of freeing a pointer and then accessing it in a safe manner
+/* Realloc Free Unsafe
+ *
+ * Example of using reallocf() to double free a pointer,
+ * which will cause a crash.
+ */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -18,10 +22,8 @@ int main(int argc, char *argv[]) {
 
     printf("%p = %d\n", (void *) ptr1, *ptr1);
 
-    // what is max size_t limits value? SIZE_MAX
+    // use max size to force realloc to fail
     int *ptr2 = reallocf(ptr1, SIZE_MAX);
-
-    // double free pointer
     if (!ptr2) {
         perror("reallocf");
         free(ptr1);
@@ -29,7 +31,6 @@ int main(int argc, char *argv[]) {
     }
 
     printf("%p = %d\n", (void *) ptr2, *ptr2);
-
     free(ptr2);
 
     return 0;

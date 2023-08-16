@@ -1,4 +1,10 @@
-// Example of checking if a point is NULL before dereferencing it.
+/* Null Pointer Unsafe
+ *
+ * Example of accessing a null pointer, which will cause a crash.
+ *
+ * Example of dereferencing a null pointer.
+ * The pointer may be a null pointer, depending on argc.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
