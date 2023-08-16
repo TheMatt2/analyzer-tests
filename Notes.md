@@ -23,6 +23,7 @@
 | Malloc Zero Access        | 2 🟠     | Undefined Behavior    |
 | Stack Return 1            | 3 🔴     | Undefined Behavior    |
 | Stack Return 2            | 3 🔴     | Undefined Behavior    |
+| Stack Return 3            | 3 🔴     | Undefined Behavior    |
 | String Literal Modify     | 2 🟠     | Undefined Behavior    |
 | Uninitialized Value 1     | 2 🟠     | Undefined Behavior    |
 | Uninitialized Value 2     | 2 🟠     | Undefined Behavior    |
