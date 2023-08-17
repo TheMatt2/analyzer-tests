@@ -16,8 +16,8 @@
 | Null Pointer              | 2 🟠     | Memory                |
 | Realloc Invalid           | 2 🟠     | Memory                |
 | Reallocf Free             | 2 🟠     | Memory                |
-| Use After Free 1          | 3 🔴     | Memory                |
-| Use After Free 2          | 3 🔴     | Memory                |
+| Double Free 1             | 3 🔴     | Memory                |
+| Double Free 2             | 3 🔴     | Memory                |
 | Divide By Zero 1          | 2 🟠     | Logical               |
 | Divide By Zero 2          | 2 🟠     | Logical               |
 | Malloc Zero Access        | 2 🟠     | Undefined Behavior    |

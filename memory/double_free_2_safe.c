@@ -1,6 +1,6 @@
-/* Use After Free 2 Unsafe
+/* Double Free 2 Safe
  *
- * Example of freeing a pointer twice, which will cause a crash.
+ * Example of *not* freeing a pointer twice, which won't cause a crash.
  *
  * Intentionally making it difficult for the compiler to see
  * how the pointers are being used.
@@ -59,7 +59,8 @@ int main(int argc, char *argv[]) {
 
     printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);
-    sneaky_no_swap((uintptr_t *) &ptr_a, (uintptr_t *) &ptr_b, argc);
+
+    sneaky_swap((uintptr_t *) &ptr_a, (uintptr_t *) &ptr_b, argc);
 
     printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);

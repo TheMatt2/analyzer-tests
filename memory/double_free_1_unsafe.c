@@ -1,4 +1,4 @@
-/* Use After Free 1 Unsafe
+/* Double Free 1 Unsafe
  *
  * Example of freeing a pointer twice, which will cause a crash.
  */
