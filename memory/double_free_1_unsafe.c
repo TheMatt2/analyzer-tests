@@ -28,8 +28,6 @@ int main(int argc, char *argv[]) {
 
     printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);
-
-    printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);
     return 0;
 }

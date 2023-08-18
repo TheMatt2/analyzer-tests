@@ -61,8 +61,6 @@ int main(int argc, char *argv[]) {
     free(ptr_a);
 
     sneaky_swap((uintptr_t *) &ptr_a, (uintptr_t *) &ptr_b, argc);
-
-    printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);
     return 0;
 }
