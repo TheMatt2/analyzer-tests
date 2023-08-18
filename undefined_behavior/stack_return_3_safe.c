@@ -18,6 +18,12 @@ int *get_ptr(void) {
     *x = 0xbeef;
 
     int *y = malloc(sizeof(int));
+    if (!y) {
+        perror("malloc");
+        return NULL;
+    }
+
+    *y = *x - 1;
 
     if (x == y) return x;
 
@@ -28,10 +34,11 @@ int main(int argc, char *argv[]) {
     (void) argc;
     (void) argv;
 
-    char *ptr = get_ptr();
-    printf("%p = %s\n", (void *) ptr, ptr);
+    int *ptr = get_ptr();
+    if (!ptr) return 1;
+
+    printf("%p = %d\n", (void *) ptr, *ptr);
 
     free(ptr);
-
     return 0;
 }

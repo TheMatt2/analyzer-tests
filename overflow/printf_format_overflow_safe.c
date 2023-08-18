@@ -10,6 +10,7 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
+    (void) argv;
 
     const char *user_string;
 

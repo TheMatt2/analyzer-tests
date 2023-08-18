@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     (void) argv;
 
     int *ptr = get_ptr();
-    printf("%p = %d\n", (void *) ptr, ptr);
+    printf("%p = %d\n", (void *) ptr, *ptr);
 
     return 0;
 }
