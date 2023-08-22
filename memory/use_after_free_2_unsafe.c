@@ -1,171 +1,196 @@
-/* Use After Free Unsafe
+/* Use After Free 2 Unsafe
  *
- * Example of using a pointer after it has been freed,
- * which will cause a crash.
+ * Example of freeing a pointer twice, which will cause a crash,
+ * *or worse*.
  *
- * Show an example where the use after free may lead to
- * a security vulnerability.
+ * This is a security focused example that shows how a use-after-free
+ * is a vulnerability, not just a bug. A use-after-free vulnerability
+ * can be exploited by an attack to manipulate the program to do what
+ * they want, such as setting the instruction pointer!
  */
 
-#include <errno.h>
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
-#define MAX_OPS 10
-#define MAX_OPS_STR_LENGTH 4
-#define MAX_OPS_PUT_LENGTH 4096
+#define FILENAME "data.bin"
 
-// Format a string with given length
-#define STR(s) XSTR(s)
-#define XSTR(s) #s
-#define FMT_STR(length) "%" STR(length) "s"
+#define PRE_SIZE (size_t) 16
+#define BODY_SIZE (size_t) 16
+#define BODY_NUM 5
 
-// Make a linked list of operations to call
-struct op_ {
+void op_print(void) {
+    printf("Hello World\n");
+    fflush(stdout);
+}
+
+void op_secret(void) {
+    const static char secret[] = "\x62\x60\x6c\x62\x6a\x64";
+
+    printf("Authorization Granted\n");
+    printf("The password is: ");
+
+    for (size_t i = 0; i < sizeof(secret); i++) {
+        char c = secret[i] ^ ((char) i);
+        printf("%c", (int) c);
+    }
+
+    printf("\n");
+}
+
+struct func_op_ {
     char *name;
-    char *put_str;
-    int (*op)(int, int);
-    struct op_ *next;
+    void (*func)(void);
 };
 
-// Operations
-enum op_type {INVALID = 0, ADD, SUB, MUL, DIV, MOD, XOR, AND, OR, PUT};
-
-int op_add(int a, int b) { return a + b; }
-int op_sub(int a, int b) { return a - b; }
-int op_mul(int a, int b) { return a * b; }
-int op_div(int a, int b) { return a / b; }
-int op_mod(int a, int b) { return a % b; }
-int op_xor(int a, int b) { return a ^ b; }
-int op_and(int a, int b) { return a & b; }
-int op_or (int a, int b) { return a | b; }
-void op_put(char *str) {printf("%s\n", str);}
-
-const char* op_type_to_str(enum op_type op) {
-    switch (op) {
-        case ADD: return "ADD";
-        case SUB: return "SUB";
-        case MUL: return "MUL";
-        case DIV: return "DIV";
-        case MOD: return "MOD";
-        case XOR: return "XOR";
-        case AND: return "AND";
-        case OR : return "OR";
-        case PUT: return "PUT";
-        default : return "UNKNOWN";
+int open_file(const char *filename, int flags) {
+    int fd = open(filename, flags);
+    if (fd < 0) {
+        // failed to open
+        perror(filename);
+        goto error2;
     }
+
+    // confirm fd is a normal file
+    struct stat path_stat;
+    if (fstat(fd, &path_stat)) {
+        perror("fstat");
+        goto error1;
+    }
+
+    // is directory
+    if (S_ISDIR(path_stat.st_mode)) {
+        fprintf(stderr, "%s: Is a directory\n", filename);
+        goto error1;
+    }
+
+    return fd;
+error1:
+    close(fd);
+error2:
+    return -1;
 }
 
-enum op_type str_to_op_type(const char *str) {
+int read_bytes(int fd, void *buf, size_t size, const char *filename) {
+    // perform read
+    ssize_t bytes_read = read(fd, buf, size);
 
-    const size_t len = MAX_OPS_STR_LENGTH;
-
-    if      (strncmp(str, "ADD", len) == 0) return ADD;
-    else if (strncmp(str, "SUB", len) == 0) return SUB;
-    else if (strncmp(str, "MUL", len) == 0) return MUL;
-    else if (strncmp(str, "DIV", len) == 0) return DIV;
-    else if (strncmp(str, "MOD", len) == 0) return MOD;
-    else if (strncmp(str, "XOR", len) == 0) return XOR;
-    else if (strncmp(str, "AND", len) == 0) return AND;
-    else if (strncmp(str, "OR",  len) == 0) return OR;
-    else if (strncmp(str, "PUT", len) == 0) return PUT;
-    else                                    return INVALID;
-}
-
-int free_ops(struct op_ *op_list) {
-    // free values in ops
-    struct op_ *op = op_list;
-
-    for (int i = 0; i < MAX_OPS; i++) {
-        free(op->put_str);
-        op = op->next;
+    // check for errors
+    if (bytes_read < 0) {
+        perror("read");
+        return -1;
     }
-}
 
-int parse_ops(FILE *fd, struct op_ *ops) {
+    // check underflow
+    if ((size_t) bytes_read != size) {
+        // get offset to add to error message
+        off_t pos = lseek(fd, 0, SEEK_CUR);
 
-    // Read in operations from file
-    // Format: <op> <arg>
+        if (pos > 0) {
+            // if seek succeeds, subtract to show offset before read
+            pos = pos - bytes_read;
 
-    struct op_ *op = ops;
-    char name[MAX_OPS_NAME_LENGTH];
-    char op_str[MAX_OPS_STR_LENGTH];
-    int arg;
-    int retval;
-
-    for (int i = 0; i < MAX_OPS; i++) {
-
-        errno = 0;
-        retval = fscanf(fd,
-            FMT_STR(MAX_OPS_NAME_LENGTH)
-            FMT_STR(MAX_OPS_STR_LENGTH)
-            ", %d",
-            name, op_str, &arg);
-
-        if (errno) {
-            perror("fscanf");
-            return -1;
-        } else if (retval == EOF) {
-            // Finished reading operations
-            break;
-        } else if (retval < 2) {
-            // couldn't read any more operations
-            fprintf(stderr, "Invalid operations file\n");
-            return -1;
+            fprintf(stderr, "%s: Read %zd bytes of %zu bytes expected at offset %jd\n",
+                filename, bytes_read, size, (intmax_t) pos);
+        } else {
+            // if lseek fails, and returns -1, ignore and show message
+            // without offset
+            fprintf(stderr, "%s: Read %zd bytes of %zu bytes\n",
+                filename, bytes_read, size);
         }
-
-        const enum op_type op_type = str_to_op_type(op_str);
-
-        // Find the op function value
-        int (*op_func)(int, int);
-
-        switch (op_type) {
-        case ADD: op_func = &op_add; break;
-        case SUB: op_func = &op_sub; break;
-        case MUL: op_func = &op_mul; break;
-        case DIV: op_func = &op_div; break;
-        case MOD: op_func = &op_mod; break;
-        case XOR: op_func = &op_xor; break;
-        case AND: op_func = &op_and; break;
-        case OR : op_func = &op_or;  break;
-        default : op_func = NULL;    break;
-        }
-
-        if (!op_func) {
-            fprintf(stderr, "Invalid operation: %s\n", op_str);
-            return -1;
-        }
-
-        // Set value on pointer
-        op->name = strndup(name, MAX_OPS_NAME_LENGTH);
-        op->op = op_func;
-
-        // Increment operator
-        op = op->next;
+        return -1;
     }
+
     return 0;
 }
 
 int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
+    int retval = 0;
 
-    // Open file with operations
-    FILE *fd = fopen("ops_test.txt", "r");
+    uint8_t *preamble = NULL;
+    uint8_t *body[BODY_NUM] = {NULL};
+    const char *filename;
 
-    // Load operations into linked list
+    if (argc == 2) {
+        filename = argv[1];
+    } else {
+        filename = FILENAME;
+    }
 
-    // Run operations
+    // open input file
+    int fd = open_file(filename, O_RDONLY);
+    if (fd < 0) {
+        retval = 1;
+        goto exit3;
+    }
 
-    // Free operations
-    // *oops* didn't null pointers
+    // create function
+    struct func_op_ *func_op = malloc(sizeof(struct func_op_));
+    if (!func_op) {
+        perror("malloc");
+        retval = 1;
+        goto exit2;
+    }
 
-    // Load operations again (but its blank)
+    // initialize
+    func_op->name = "hello";
+    func_op->func = &op_print;
 
-    // Run operations again (it should have been blank...)
+    // run function
+    printf("> %s (%p)\n", func_op->name, func_op->func);
+    func_op->func();
 
-    // Free operations again
+    // free function
+    free(func_op);
 
-    return 0;
+    // setup preamble
+    preamble = malloc(PRE_SIZE);
+    if (!preamble) {
+        perror("malloc");
+        retval = 1;
+        goto exit1;
+    }
+
+    // read preamble
+    if (read_bytes(fd, preamble, PRE_SIZE, filename)) {
+        retval = 1;
+        goto exit1;
+    }
+
+    // setup body
+    for (int i = 0; i < BODY_NUM; i++) {
+        body[i] = malloc(BODY_SIZE);
+        if (!body[i]) {
+            perror("malloc");
+            retval = 1;
+            goto exit1;
+        }
+    }
+
+    // read body
+    for (int i = 0; i < BODY_NUM; i++) {
+        if (read_bytes(fd, body[i], BODY_SIZE, filename)) {
+            retval = 1;
+            goto exit1;
+        }
+    }
+
+    // run function again
+    printf("> %s (%p)\n", func_op->name, func_op->func);
+    func_op->func();
+
+exit1:
+    // free preamble
+    free(preamble);
+
+    // free body
+    for (int i = 0; i < BODY_NUM; i++) {
+        free(body[i]);
+    }
+exit2:
+    close(fd);
+exit3:
+    return retval;
 }
