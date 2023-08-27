@@ -17,32 +17,40 @@
 
 #define FILENAME "data.bin"
 
-#define PRE_SIZE (size_t) 16
-#define BODY_SIZE (size_t) 16
-#define BODY_NUM 5
+#define TITLE_SIZE ((size_t) 16)
+#define BODY_SIZE ((size_t) 16)
+#define BODY_NUM (10)
 
-void op_print(void) {
-    printf("Hello World\n");
-    fflush(stdout);
+void normal_greeting(const char *name) {
+    printf("Hello %s\n\n", name);
 }
 
-void op_secret(void) {
-    const static char secret[] = "\x62\x60\x6c\x62\x6a\x64";
+void fancy_greeting(const char *name) {
+    printf("Salutations %s!\n\n", name);
+}
 
-    printf("Authorization Granted\n");
-    printf("The password is: ");
+void secret_greeting(const char *name) {
+    (void) name;
 
-    for (size_t i = 0; i < sizeof(secret); i++) {
-        char c = secret[i] ^ ((char) i);
+    const static char msg[95] = \
+        "\x57\x64\x6e\x60\x6b\x68\x63\x27\x49\x6e\x6f\x65\x78\x2d" \
+        "\x3e\x3f\x27\x30\x18\x52\x61\x61\x7e\x78\x6a\x70\x60\x7a" \
+        "\x68\x74\x71\x71\x00\x66\x50\x42\x4a\x51\x43\x43\x22\x7d" \
+        "\x42\x4e\x0c\x5e\x4b\x4c\x42\x54\x46\x13\x59\x50\x45\x44" \
+        "\x59\x5e\x5f\x1b\x55\x4e\x04\x1f\x13\x36\x27\x26\x30\x65" \
+        "\x02\x35\x2d\x28\x27\x38\x6c\x65\x0f\x3d\x35\x71\x1f\x32" \
+        "\x30\x30\x76\x38\x3e\x79\x0e\x33\x35\x2e\x77";
+
+    for (size_t i = 0; i < sizeof(msg); i++) {
+        char c = msg[i] ^ ((char) i);
         printf("%c", (int) c);
     }
-
     printf("\n");
 }
 
-struct func_op_ {
-    char *name;
-    void (*func)(void);
+struct greeter_ {
+    const char *name;
+    void (*func)(const char *name);
 };
 
 int open_file(const char *filename, int flags) {
@@ -109,8 +117,8 @@ int read_bytes(int fd, void *buf, size_t size, const char *filename) {
 int main(int argc, char *argv[]) {
     int retval = 0;
 
-    uint8_t *preamble = NULL;
-    uint8_t *body[BODY_NUM] = {NULL};
+    char *title = NULL;
+    char *body[BODY_NUM] = {NULL};
     const char *filename;
 
     if (argc == 2) {
@@ -127,34 +135,42 @@ int main(int argc, char *argv[]) {
     }
 
     // create function
-    struct func_op_ *func_op = malloc(sizeof(struct func_op_));
-    if (!func_op) {
+    struct greeter_ *greeter = malloc(sizeof(struct greeter_));
+    if (!greeter) {
         perror("malloc");
         retval = 1;
         goto exit2;
     }
 
     // initialize
-    func_op->name = "hello";
-    func_op->func = &op_print;
+    if (argc == 3) {
+        greeter->name = "Captain Tom";
+        greeter->func = &normal_greeting;
+    } else {
+        greeter->name = "Professor Steve";
+        greeter->func = &fancy_greeting;
+    }
 
-    // run function
-    printf("> %s (%p)\n", func_op->name, func_op->func);
-    func_op->func();
+    // show which function was choosen for debugging
+    printf("> Chose (%p)\n", greeter->func);
 
-    // free function
-    free(func_op);
+    // show name for debugging
+    printf("Name: %s\n", greeter->name);
+    fflush(stdout);
 
-    // setup preamble
-    preamble = malloc(PRE_SIZE);
-    if (!preamble) {
+    // finished with name, deallocate
+    free(greeter);
+
+    // setup title
+    title = malloc(TITLE_SIZE);
+    if (!title) {
         perror("malloc");
         retval = 1;
         goto exit1;
     }
 
-    // read preamble
-    if (read_bytes(fd, preamble, PRE_SIZE, filename)) {
+    // read title
+    if (read_bytes(fd, title, TITLE_SIZE, filename)) {
         retval = 1;
         goto exit1;
     }
@@ -177,13 +193,24 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // run function again
-    printf("> %s (%p)\n", func_op->name, func_op->func);
-    func_op->func();
+    // display greeting
+    greeter->func(greeter->name);
+
+    // display title
+    printf("Title: %.*s\n", (int) TITLE_SIZE, title);
+
+    for (int i = 0; i < BODY_NUM; i++) {
+        // stop if a null entry is reached
+        if (body[i][0] == '\0') {
+            break;
+        }
+
+        printf("%03d: %.*s\n", i, (int) BODY_SIZE, body[i]);
+    }
 
 exit1:
-    // free preamble
-    free(preamble);
+    // free title
+    free(title);
 
     // free body
     for (int i = 0; i < BODY_NUM; i++) {

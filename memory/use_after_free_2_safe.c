@@ -1,6 +1,6 @@
 /* Use After Free 2 Unsafe
  *
- * Example of *not* freeing a pointer twice, which can't cause a crash.
+ * Example of *not* freeing a pointer twice, which won't cause a crash.
  *
  * This is a security focused example that shows how a use-after-free
  * is a vulnerability, not just a bug. A use-after-free vulnerability
@@ -16,32 +16,48 @@
 
 #define FILENAME "data.bin"
 
-#define PRE_SIZE (size_t) 16
-#define BODY_SIZE (size_t) 16
-#define BODY_NUM 5
+#define TITLE_SIZE ((size_t) 16)
+#define BODY_SIZE ((size_t) 16)
+#define BODY_NUM (10)
 
-void op_print(void) {
-    printf("Hello World\n");
-    fflush(stdout);
+void normal_greeting(const char *name) {
+    printf("Hello %s\n\n", name);
 }
 
-void op_secret(void) {
-    const static char secret[] = "\x62\x60\x6c\x62\x6a\x64";
+void fancy_greeting(const char *name) {
+    printf("Salutations %s!\n\n", name);
+}
 
-    printf("Authorization Granted\n");
-    printf("The password is: ");
+void secret_greeting(const char *name) {
+    const static char pre[] = \
+        "\x57\x65\x6c\x63\x6f\x6d\x65\x20\x41\x67\x65\x6e\x74\x20";
 
-    for (size_t i = 0; i < sizeof(secret); i++) {
-        char c = secret[i] ^ ((char) i);
+    const static char post[] = \
+        "\x0a\x40\x77\x77\x6c\x6a\x74\x6e\x72\x68\x7e\x62\x63\x63" \
+        "\x2e\x48\x62\x70\x7c\x67\x71\x71\x1c\x43\x70\x7c\x3a\x68" \
+        "\x79\x7e\x6c\x7a\x54\x01\x4f\x46\x57\x56\x47\x40\x4d\x09" \
+        "\x43\x58\x16\x0d\x7d\x58\x55\x54\x46\x13\x70\x47\x53\x56" \
+        "\x55\x4a\x1a\x13\x7d\x4f\x5b\x1f\x0d\x20\x26\x26\x64\x2a" \
+        "\x20\x67\x1c\x21\x23\x38\x65";
+
+    for (size_t i = 0; i < sizeof(pre); i++) {
+        char c = pre[i] ^ ((char) i);
+        printf("%c", (int) c);
+    }
+
+    printf("%s", name);
+
+    for (size_t i = 0; i < sizeof(pre); i++) {
+        char c = post[i] ^ ((char) i);
         printf("%c", (int) c);
     }
 
     printf("\n");
 }
 
-struct func_op_ {
-    char *name;
-    void (*func)(void);
+struct greeter_ {
+    const char *name;
+    void (*func)(const char *name);
 };
 
 int open_file(const char *filename, int flags) {
@@ -108,8 +124,8 @@ int read_bytes(int fd, void *buf, size_t size, const char *filename) {
 int main(int argc, char *argv[]) {
     int retval = 0;
 
-    uint8_t *preamble = NULL;
-    uint8_t *body[BODY_NUM] = {NULL};
+    char *title = NULL;
+    char *body[BODY_NUM] = {NULL};
     const char *filename;
 
     if (argc == 2) {
@@ -126,34 +142,38 @@ int main(int argc, char *argv[]) {
     }
 
     // create function
-    struct func_op_ *func_op = malloc(sizeof(struct func_op_));
-    if (!func_op) {
+    struct greeter_ *greeter = malloc(sizeof(struct greeter_));
+    if (!greeter) {
         perror("malloc");
         retval = 1;
         goto exit2;
     }
 
     // initialize
-    func_op->name = "hello";
-    func_op->func = &op_print;
+    if (argc == 3) {
+        greeter->name = "Captain Tom";
+        greeter->func = &normal_greeting;
+    } else {
+        greeter->name = "Professor Steve";
+        greeter->func = &fancy_greeting;
+    }
 
-    // run function
-    printf("> %s (%p)\n", func_op->name, func_op->func);
-    func_op->func();
+    // show which function was choosen for debugging
+    printf("> Choose (%p)\n", greeter->func);
 
-    // free function
-    free(func_op);
+    // show name for debugging
+    printf("Name: %s\n", greeter->name);
 
-    // setup preamble
-    preamble = malloc(PRE_SIZE);
-    if (!preamble) {
+    // setup title
+    title = malloc(TITLE_SIZE);
+    if (!title) {
         perror("malloc");
         retval = 1;
         goto exit1;
     }
 
-    // read preamble
-    if (read_bytes(fd, preamble, PRE_SIZE, filename)) {
+    // read title
+    if (read_bytes(fd, title, TITLE_SIZE, filename)) {
         retval = 1;
         goto exit1;
     }
@@ -176,13 +196,27 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // run function again
-    printf("> %s (%p)\n", func_op->name, func_op->func);
-    func_op->func();
+    // display greeting
+    greeter->func(greeter->name);
+
+    // display title
+    printf("Title: %.*s\n", (int) TITLE_SIZE, title);
+
+    for (int i = 0; i < BODY_NUM; i++) {
+        // stop if a null entry is reached
+        if (body[i][0] == '\0') {
+            break;
+        }
+
+        printf("%03d: %.*s\n", i, (int) BODY_SIZE, body[i]);
+    }
 
 exit1:
-    // free preamble
-    free(preamble);
+    // free function
+    free(greeter);
+
+    // free title
+    free(title);
 
     // free body
     for (int i = 0; i < BODY_NUM; i++) {
