@@ -13,17 +13,17 @@
 int main(int argc, char *argv[]) {
     (void) argv;
 
-    int x;
+    int x = argc;
 
     switch (argc) {
         case 0:
-            x = 8;
+            x += 8;
         case 1:
-            x = 5;
+            x += 5;
         case 2:
-            x = 3;
+            x += 3;
         default:
-            x = 2;
+            x += 2;
             break;
     }
 

@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    *ptr = *ptr ^ *ptr;
+    *ptr = 27;
     printf("%p = %d\n", (void *) ptr, *ptr);
 
     free(ptr);
