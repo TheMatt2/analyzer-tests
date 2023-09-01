@@ -1,10 +1,10 @@
 /* Switch Fall-Through Safe
  *
  * Example of code flow falling through a switch statement,
- * but the programmer marks the intend for the fall-through to happen.
+ * but with explicit markings the fall-through is intended.
  *
- * Unlike most of the other tests here, there is nothing wrong
- * with having code flow fall through, except it is a common mistake
+ * Unlike most of the other tests here, there is technically nothing wrong
+ * with having code flow fall-through, except it is a common mistake
  * for programmers to make.
  */
 

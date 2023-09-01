@@ -7,10 +7,13 @@
  * complex string manipulation algorithm that could have
  * a non-obvious buffer overflow.
  *
- * The string quoting quotes the string in a
- * manner where the output string must have size (including null char):
+ * This string quoting function creates a quoted string in a manner
+ * such that the output string must have a size set by the equation:
  *
- *  m = (n - 1) * 4 + 3
+ *  M = (N - 1) * 4 + 3
+ *
+ * Where M is the size of the output string including the NULL pointer.
+ * Where N is the size of the input string include the NULL pointer.
  */
 
 #include <ctype.h>

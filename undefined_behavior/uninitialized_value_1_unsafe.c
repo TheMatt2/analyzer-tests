@@ -1,6 +1,6 @@
-/* Uninitalized Value 1 Unsafe
+/* Uninitialized Value 1 Unsafe
  *
- * Example of reading an uninitalized value,
+ * Example of reading an uninitialized value,
  * which can cause externally visible undefined
  * behavior.
  */

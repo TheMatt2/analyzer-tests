@@ -3,7 +3,7 @@
  * Example of never freeing a pointer, which will cause a memory leak.
  *
  * While this program will not crash, leaking memory consumes resources
- * that the OS is not guarenteed to reclaim in a timely manner.
+ * that the OS is not guaranteed to reclaim in a timely manner.
  */
 
 #include <stdio.h>

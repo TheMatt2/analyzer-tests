@@ -1,6 +1,6 @@
 /* Array Overflow Unsafe
  *
- * Example of accessing values outside of an array, which will cause a crash.
+ * Example of accessing values outside an array, which will cause a crash.
  */
 
 #include <stdio.h>

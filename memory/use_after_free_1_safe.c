@@ -26,15 +26,15 @@ int main(int argc, char *argv[]) {
     *ptr_a = 10;
     *ptr_b = 42;
 
-    // show a
+    // show ptr_a
     printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     free(ptr_a);
     ptr_a = NULL;
 
-    // show b
+    // show ptr_b
     printf("%p = %d\n", (void *) ptr_b, *ptr_b);
 
-    // show a again
+    // show ptr_a, again
     if (ptr_a) {
         printf("%p = %d\n", (void *) ptr_a, *ptr_a);
     }

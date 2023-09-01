@@ -2,9 +2,8 @@
  *
  * Example of *not* dividing by zero, which won't cause a crash.
  *
- * Using argc to decide if an a divide by zero occurs,
- * to see if a warning is produced on the possibility of
- * a crash.
+ * Using argc to decide if a divide occurs,
+ * however this logically can not cause a divide by zero.
  */
 
 #include <stdio.h>

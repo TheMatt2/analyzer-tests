@@ -2,7 +2,7 @@
  *
  * Example of potentially dividing by zero, which would cause a crash.
  *
- * Using argc to decide if an a divide by zero occurs,
+ * Using argc to decide if a divide by zero exception occurs,
  * to see if a warning is produced on the possibility of
  * a crash.
  */

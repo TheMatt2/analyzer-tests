@@ -1,8 +1,8 @@
 /* Array Overflow Unsafe
  *
- * Example of *not* accessing values outside of an array, which will cause a crash.
+ * Example of *not* accessing values outside an array, which will cause a crash.
  *
- * Explictly initializing the array to a larger size,
+ * Explicitly initializing the array to a larger size,
  * to test the remaining values are zeros.
  */
 

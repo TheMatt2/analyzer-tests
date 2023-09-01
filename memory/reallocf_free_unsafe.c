@@ -1,4 +1,4 @@
-/* Realloc Free Unsafe
+/* Reallocf Free Unsafe
  *
  * Example of using reallocf() to double free a pointer,
  * which will cause a crash.
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
     printf("%p = %d\n", (void *) ptr1, *ptr1);
 
-    // use max size to force realloc to fail
+    // use max size to force reallocf() to fail
     int *ptr2 = reallocf(ptr1, SIZE_MAX);
     if (!ptr2) {
         perror("reallocf");

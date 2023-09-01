@@ -3,8 +3,8 @@
  * Example of code flow falling through a switch statement,
  * when the programmer likely intended for each case to have a break.
  *
- * Unlike most of the other tests here, there is nothing wrong
- * with having code flow fall through, except it is a common mistake
+ * Unlike most of the other tests here, there is technically nothing wrong
+ * with having code flow fall-through, except it is a common mistake
  * for programmers to make.
  */
 

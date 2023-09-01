@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
         greeter->func = &fancy_greeting;
     }
 
-    // show which function was choosen for debugging
+    // show which function was chosen for debugging
     printf("> Choose (%p)\n", greeter->func);
 
     // show name for debugging
