@@ -152,11 +152,10 @@ int main(int argc, char *argv[]) {
     }
 
     // show which function was chosen for debugging
-    printf("> Chose (%p)\n", greeter->func);
+    printf("> Chose (%p)\n", (void *) greeter->func);
 
     // show name for debugging
     printf("Name: %s\n", greeter->name);
-    fflush(stdout);
 
     // finished with name, deallocate
     free(greeter);

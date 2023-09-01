@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
+    (void) argv;
 
     int y = 42;
     printf("y is %d\n", y);

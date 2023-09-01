@@ -100,9 +100,9 @@ void quote_s(const char *const str, size_t length, char *const buf) {
                 j++;
                 buf[j] = 'x';
                 j++;
-                buf[j] = (((int) c & 0xf0) >> 4) + '0'; // hex of most sig digit
+                buf[j] = ((c & 0xf0) >> 4) + '0'; // hex of most sig digit
                 j++;
-                buf[j] = ((int) c & 0x0f) + '0'; // hex of least sig digit
+                buf[j] = (c & 0x0f) + '0'; // hex of least sig digit
                 j++;
             }
         }
