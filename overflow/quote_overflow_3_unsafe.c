@@ -20,6 +20,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Convert byte to characters \xAB -> 0xAB
+#define CHAR_HEX_UPPER(b) ((char) (((b) & 0xf0) >> 4) + '0')
+#define CHAR_HEX_LOWER(b) ((char) ((b) & 0x0f) + '0')
+
 char msg[] = "\1\2\3\4";
 
 /* Quote a string
@@ -85,7 +89,7 @@ void quote_s(const char *const str, size_t length, char *const buf) {
                 case '\'': escape = '\''; break;
                 case '\\': escape = '\\'; break;
                 case  '"': escape = '\"'; break;
-                default: escape = '\0';
+                default  : escape = '\0';
             }
 
             if (escape != '\0') {
@@ -100,9 +104,9 @@ void quote_s(const char *const str, size_t length, char *const buf) {
                 j++;
                 buf[j] = 'x';
                 j++;
-                buf[j] = ((c & 0xf0) >> 4) + '0'; // hex of most sig digit
+                buf[j] = CHAR_HEX_UPPER(c); // hex of most sig digit
                 j++;
-                buf[j] = (c & 0x0f) + '0'; // hex of least sig digit
+                buf[j] = CHAR_HEX_LOWER(c); // hex of least sig digit
                 j++;
             }
         }

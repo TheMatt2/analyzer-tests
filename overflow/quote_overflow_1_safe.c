@@ -111,7 +111,7 @@ ssize_t quote_s(const char *const str, size_t str_length,
                 case '\'': escape = '\''; break;
                 case '\\': escape = '\\'; break;
                 case  '"': escape = '\"'; break;
-                default: escape = '\0';
+                default  : escape = '\0';
             }
 
             // bounds check

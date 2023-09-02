@@ -41,7 +41,7 @@ void secret_greeting(const char *name) {
         "\x30\x30\x76\x38\x3e\x79\x0e\x33\x35\x2e\x77";
 
     for (size_t i = 0; i < sizeof(msg); i++) {
-        char c = msg[i] ^ ((char) i);
+        char c = (char) (msg[i] ^ i);
         printf("%c", (int) c);
     }
     printf("\n");
@@ -149,6 +149,9 @@ int main(int argc, char *argv[]) {
         greeter->name = "Professor Steve";
         greeter->func = &fancy_greeting;
     }
+
+    // Impossible greeting, that no one can get!
+    (void) &secret_greeting;
 
     // show which function was chosen for debugging
     printf("> Chose (%p)\n", (void *) greeter->func);
