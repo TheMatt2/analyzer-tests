@@ -76,7 +76,31 @@
 | Switch Fall Through       | ✅*               |             |              | ✅         |              |              |             |              |        |
 
 `*` True Positive and False Positive
-`-` Issued Complexity Warning
+`&` Issued Complexity Warning
+
+### Detection Results
+
+ - Sonarlint v3.20.2 16 / 29 (55%)
+   - Quote Overflow 1
+   - Quote Overflow 2
+
+ - Snyk 1.20.3 4 / 29 (14%)
+
+ - CLion 2023.2 9 / 29 (31%)
+
+ - GCC 13.2.0 17 / 29 (59%)
+   - String Literal Modify
+   - Switch Fall Through
+
+ - Clang 16.0.0 15 / 29 (52%)
+
+ - icx 2023.1.0 15 / 29 (52%)
+
+ - msvc v19.37 10 / 29 (34%)
+   - Printf String Overflow
+
+ - clang-tidy 15 / 29 (52%)
+ - ChatGPT
 
 ## Sanitizer Test Results
 
