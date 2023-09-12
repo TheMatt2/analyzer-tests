@@ -20,11 +20,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ssize_t is posix, yet is not defined on Windows
 #if defined(_MSC_VER)
+// On Windows, ssize_t is in <BaseTsd.h>
 #include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
 #else
+// On MacOS / Linux, ssize_t is in <sys/types.h>
 #include <sys/types.h>
 #endif
 
