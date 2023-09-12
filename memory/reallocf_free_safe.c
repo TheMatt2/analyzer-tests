@@ -6,7 +6,28 @@
 
 #include <stdio.h>
 #include <stdint.h>
+
+#if defined(__FreeBSD__)
+// On BSD reallocf() is defined in bsd/stdlib.h
+#include <bsd/stdlib.h>
+#elif defined(__APPLE__)
+// On MacOS reallocf() is defined in stdlib.h
 #include <stdlib.h>
+#else
+// On Linux, there is no reallocf(), reallocf() is defined in stdlib.h
+#include <stdlib.h>
+
+// https://opensource.apple.com/source/Libc/Libc-391/stdlib/FreeBSD/reallocf.c
+void *reallocf(void *ptr, size_t size) {
+	void *nptr;
+
+	nptr = realloc(ptr, size);
+	if (!nptr && ptr)
+		free(ptr);
+
+	return nptr;
+}
+#endif
 
 int main(int argc, char *argv[]) {
     (void) argc;
