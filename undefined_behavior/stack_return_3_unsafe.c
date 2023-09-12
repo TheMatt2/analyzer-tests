@@ -13,6 +13,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#if defined(_MSC_VER)
+// On Windows, _alloca() is in malloc.h
+#include <malloc.h>
+#define alloca _alloca
+#else
+// On Linux alloca() is defined in alloca.h
+// On MacOS alloca() is defined in alloca.h and stdlib.h
+#include <alloca.h>
+#endif
+
 int *get_ptr(void) {
     int *val = alloca(sizeof(int));
     *val = 0xbeef;
