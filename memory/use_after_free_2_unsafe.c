@@ -11,15 +11,26 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdint.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/stat.h>
 
-#define FILENAME "data.bin"
+#if defined(_MSC_VER)
+// On Windows, open() / read() are in io.h
+#include <io.h>
+// On Windows, read()'s return type is int, not ssize_t
+#define ssize_t int
+#define S_ISDIR(mode) ((mode) & _S_IFDIR)
+#else
+// On Linux / MacOS, open() / read() are in unistd.h
+#include <unistd.h>
+#endif
 
-#define TITLE_SIZE ((size_t) 16)
-#define BODY_SIZE ((size_t) 16)
-#define BODY_NUM (10)
+#define FILENAME    "data.bin"
+
+#define TITLE_SIZE  ((size_t) 16)
+#define BODY_SIZE   ((size_t) 16)
+#define BODY_NUM    (10)
 
 void normal_greeting(const char *name) {
     printf("Hello %s\n\n", name);
@@ -32,17 +43,19 @@ void fancy_greeting(const char *name) {
 void secret_greeting(const char *name) {
     (void) name;
 
-    const static char msg[95] = \
-        "\x57\x64\x6e\x60\x6b\x68\x63\x27\x49\x6e\x6f\x65\x78\x2d" \
-        "\x3e\x3f\x27\x30\x18\x52\x61\x61\x7e\x78\x6a\x70\x60\x7a" \
-        "\x68\x74\x71\x71\x00\x66\x50\x42\x4a\x51\x43\x43\x22\x7d" \
-        "\x42\x4e\x0c\x5e\x4b\x4c\x42\x54\x46\x13\x59\x50\x45\x44" \
-        "\x59\x5e\x5f\x1b\x55\x4e\x04\x1f\x13\x36\x27\x26\x30\x65" \
-        "\x02\x35\x2d\x28\x27\x38\x6c\x65\x0f\x3d\x35\x71\x1f\x32" \
-        "\x30\x30\x76\x38\x3e\x79\x0e\x33\x35\x2e\x77";
+    static const char msg[] = {
+        0x57, 0x64, 0x6e, 0x60, 0x6b, 0x68, 0x63, 0x27, 0x49, 0x6e, 0x6f,
+        0x65, 0x78, 0x2d, 0x3e, 0x3f, 0x27, 0x30, 0x18, 0x52, 0x61, 0x61,
+        0x7e, 0x78, 0x6a, 0x70, 0x60, 0x7a, 0x68, 0x74, 0x71, 0x71, 0x00,
+        0x66, 0x50, 0x42, 0x4a, 0x51, 0x43, 0x43, 0x22, 0x7d, 0x42, 0x4e,
+        0x0c, 0x5e, 0x4b, 0x4c, 0x42, 0x54, 0x46, 0x13, 0x59, 0x50, 0x45,
+        0x44, 0x59, 0x5e, 0x5f, 0x1b, 0x55, 0x4e, 0x04, 0x1f, 0x13, 0x36,
+        0x27, 0x26, 0x30, 0x65, 0x02, 0x35, 0x2d, 0x28, 0x27, 0x38, 0x6c,
+        0x65, 0x0f, 0x3d, 0x35, 0x71, 0x1f, 0x32, 0x30, 0x30, 0x76, 0x38,
+        0x3e, 0x79, 0x0e, 0x33, 0x35, 0x2e, 0x77};
 
     for (size_t i = 0; i < sizeof(msg); i++) {
-        char c = (char) (msg[i] ^ i);
+        char c = msg[i] ^ (char) i;
         printf("%c", (int) c);
     }
     printf("\n");
