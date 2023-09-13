@@ -67,7 +67,6 @@ void quote_s(const char *const str, size_t length, char *const buf) {
             buf[j] = '"';
             j++;
             buf[j] = '\0';
-            // j++; // won't be used
             break;
         } else if (isprint(c)) {
             // add normally
