@@ -45,35 +45,35 @@
 
 | Test                      | Sonarlint v3.20.2 | Snyk 1.20.3 | CLion 2023.2 | GCC 13.2.0 | Clang 16.0.0 | icx 2023.1.0 | msvc v19.37 | clang-tidy | ChatGPT |
 |---------------------------|-------------------|-------------|--------------|------------|--------------|--------------|-------------|------------|---------|
-| Array Overflow            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅         |         |
-| Concat Overflow           |                   |             |              |            |              |              | ✅*         | ✅*         |         |
-| Gets Overflow             | ✅*               | ✅*         |              | ✅*        | ✅*          | ✅*          | ✅*         | ✅*         |         |
-| Printf Format Overflow    | ✅*               | ✅          | ✅           |            |              |              | ✅*         | ✅          |         |
+| Array Overflow            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅         | ✅      |
+| Concat Overflow           |                   |             |              |            |              |              | ✅*         | ✅*         | ✅*     |
+| Gets Overflow             | ✅*               | ✅*         |              | ✅*        | ✅*          | ✅*          | ✅*         | ✅*         | ✅*     |
+| Printf Format Overflow    | ✅*               | ✅          | ✅           |            |              |              | ✅*         | ✅          | ✅      |
 | Printf String Overflow    |                   |             |              |            |              |              | ✅          |              |        |
 | Quote Overflow 1          | ✅                |             |              | ✅&        |              |              |             |              |        |
 | Quote Overflow 2          | ✅                |             |              |            |              |              |             |              |        |
-| Quote Overflow 3          |                   |             |              |            |              |              |             |              |        |
-| Scanf Overflow            | ✅*               |             |              |            |              |              |             |              |        |
-| Double Free 1             | ✅                | ✅          | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
-| Double Free 2             | ✅                | ✅          |              | ✅*        | ✅           | ✅           |             | ✅           |        |
-| Invalid Pointer           |                   |             |              |            |              |              |             |              |        |
-| Memory Leak               | ✅                |             |              |            | ✅           | ✅           | ✅&         | ✅           |        |
-| Null Pointer              | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           |        |
-| Realloc Invalid           | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           |        |
-| Reallocf Free             | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           |        |
-| Use After Free 1          | ✅                | ✅          | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
+| Quote Overflow 3          |                   |             |              |            |              |              |             |              | ✅     |
+| Scanf Overflow            | ✅*               |             |              |            |              |              |             |              | ✅*    |
+| Double Free 1             | ✅                | ✅          | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅     |
+| Double Free 2             | ✅                | ✅          |              | ✅*        | ✅           | ✅           |             | ✅           | ✅*    |
+| Invalid Pointer           |                   |             |              |            |              |              |             |              | ✅*    |
+| Memory Leak               | ✅                |             |              |            | ✅           | ✅           | ✅&         | ✅           | ✅     |
+| Null Pointer              | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           | ✅*    |
+| Realloc Invalid           | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           | ✅     |
+| Reallocf Free             | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           | ✅     |
+| Use After Free 1          | ✅                | ✅          | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅     |
 | Use After Free 2          |                   |             | ✅           | ✅         |              |              | ✅          |              |        |
-| Divide By Zero 1          | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
-| Divide By Zero 2          |                   |             |              |            |              |              |             |              |        |
-| Malloc Zero Access        | ✅*               |             |              | ✅         | ✅           | ✅           |             | ✅*          |        |
-| Stack Return 1            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
-| Stack Return 2            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
-| Stack Return 3            | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           |        |
-| String Literal Modify     |                   |             |              | ✅         |              |              |             |              |        |
+| Divide By Zero 1          | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅     |
+| Divide By Zero 2          |                   |             |              |            |              |              |             |              | ✅*    |
+| Malloc Zero Access        | ✅*               |             |              | ✅         | ✅           | ✅           |             | ✅*          | ✅     |
+| Stack Return 1            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅*    |
+| Stack Return 2            | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅*    |
+| Stack Return 3            | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           | ✅*    |
+| String Literal Modify     |                   |             |              | ✅         |              |              |             |              | ✅*    |
 | Uninitialized Value 1     | ✅                |             |              | ✅         | ✅           | ✅           |             | ✅           |        |
-| Uninitialized Value 2     | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           |        |
-| Malloc Error              |                   |             |              | ✅         |              |              | ✅          |              |        |
-| Switch Fall Through       | ✅*               |             |              | ✅         |              |              |             |              |        |
+| Uninitialized Value 2     | ✅                |             | ✅           | ✅         | ✅           | ✅           | ✅          | ✅           | ✅     |
+| Malloc Error              |                   |             |              | ✅         |              |              | ✅          |              | ✅     |
+| Switch Fall Through       | ✅*               |             |              | ✅         |              |              |             |              | ✅     |
 
 `*` True Positive and False Positive
 `&` Issued Complexity Warning
@@ -100,7 +100,9 @@
    - Printf String Overflow
 
  - clang-tidy 15 / 29 (52%)
- - ChatGPT
+
+ - ChatGPT 13 / 29 (45%)
+   - Quote Overflow 3
 
 ## Sanitizer Test Results
 
@@ -152,11 +154,16 @@ Version v19.37
 
 ## ChatGPT
 
-Check the following C code for any security issues, or other issues that would cause it to crash.
-If the program has no serious issues, please say so.
+ChatGPT August 3 Version
+
+Analyze the following C program for any issues that could cause it to crash.
+Please report if any security issues or other issues are present in the program.
+
+Report on any issues that would cause a program to potentially crash.
+If the program has no serious issues, say "there are no issues".
 
 ```
-*** All comments removed
+*** Header comment removed
 ```
 
 Analyzing on the first few sentences of its answer
