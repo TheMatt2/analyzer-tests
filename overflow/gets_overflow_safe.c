@@ -3,30 +3,55 @@
  * Example of *not* using the gets() function, which won't cause a crash.
  *
  * gets() is special in that it really can not be used
- * safely. However, technically it is safe to call gets()
- * if stdin is closed. This is useless, however, and so it shouldn't
- * be surprising that gets() is still detected as unsafe.
+ * safely. However, its perfectly fine if we are using a different function
+ * that just happens to be named gets().
  */
 
-#include <stdio.h>
+#include <string.h>
+
+const char *numbers[] = {
+    "zero",     "one",      "two",      "three",
+    "four",     "five",     "six",      "seven",
+    "eight",    "nine"
+};
+
+const int secret = 8;
+
+/* (g)reater or (e)qual (t)o (s)tring
+ *
+ * Check if the msg provided is equal to the number equivalent, or a smaller number
+ */
+int gets(char *msg) {
+    int value = 0;
+
+    for (int i = secret; i >= 0; i--) {
+        if (strcmp(msg, numbers[i]) == 0) {
+            // match found
+            value = 1;
+            break;
+        }
+    }
+
+    // clear string
+    *msg = '\0';
+
+    return value;
+}
 
 int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
+    int result;
 
-    char buf[1024];
-
-    // close stdin
-    if (fclose(stdin)) {
-        perror("fclose");
-        return 1;
+    if (argc == 2) {
+        result = gets(argv[1]);
+    } else {
+        result = 0;
     }
 
-    if (!gets(buf)) {
-        perror("gets");
+    if (result) {
+        // Return 0 on success
+        return 0;
+    } else {
+        // Return 1 on failure
         return 1;
     }
-
-    printf("Input: %s\n", buf);
-    return 0;
 }
