@@ -30,10 +30,7 @@ void *reallocf(void *ptr, size_t size) {
 }
 #endif
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *ptr1 = malloc(sizeof(int));
     if (!ptr1) {
         perror("malloc");

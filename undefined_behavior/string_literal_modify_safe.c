@@ -13,7 +13,6 @@ char *str1 = "World Hello!";
 char str2[] = "Hello World!";
 
 int main(int argc, char *argv[]) {
-    (void) argc;
     (void) argv;
 
     char *str;

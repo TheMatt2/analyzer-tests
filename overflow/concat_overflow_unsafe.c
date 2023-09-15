@@ -10,10 +10,7 @@
 char str1[] = "Hello ";
 char str2[] = "World!";
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     strcat(str1, str2);
     printf("str1: %s\n", str1);
     printf("str2: %s\n", str2);

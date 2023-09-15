@@ -7,10 +7,7 @@
 
 int int_arr[] = {1, 2, 3};
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     printf("first  %d\n", int_arr[0]);
     printf("second %d\n", int_arr[1]);
     printf("third  %d\n", int_arr[2]);

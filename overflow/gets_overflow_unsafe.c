@@ -8,10 +8,7 @@
 
 #include <stdio.h>
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     char buf[1024];
 
     // make stdin a file

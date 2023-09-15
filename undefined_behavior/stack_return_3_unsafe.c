@@ -29,10 +29,7 @@ int *get_ptr(void) {
     return val;
 }
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *ptr = get_ptr();
     printf("%p = %d\n", (void *) ptr, *ptr);
 

@@ -35,10 +35,7 @@ char msg[] = "\1\2\3\4";
  */
 void quote_s(const char *str, size_t length, char *buf);
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     char *buf = malloc(sizeof(msg) * 4);
     if (!buf) {
         perror("malloc");

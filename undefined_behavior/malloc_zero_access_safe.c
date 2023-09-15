@@ -12,10 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *ptr = malloc(0);
     if (!ptr) {
         perror("malloc");

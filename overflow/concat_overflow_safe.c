@@ -10,10 +10,7 @@
 char str1[] = "Hello There!";
 char str2[] = "World!";
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     str1[6] = '\0'; // str1 is now "Hello" instead of "Hello There!"
 
     strcat(str1, str2);

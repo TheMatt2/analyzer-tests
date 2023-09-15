@@ -17,10 +17,7 @@ void *get_ptr(void) {
     return (void *) val;
 }
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     void *ptr = get_ptr();
     printf("%p = %c\n", ptr, *((char *) ptr));
 

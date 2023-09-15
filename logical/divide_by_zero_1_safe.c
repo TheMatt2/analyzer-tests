@@ -11,10 +11,7 @@
 #define A 10
 #define B 10
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
 #if A != B
     int x = 113 / (B - A);
 #else

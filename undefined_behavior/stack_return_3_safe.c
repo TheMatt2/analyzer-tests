@@ -40,10 +40,7 @@ int *get_ptr(void) {
     return y;
 }
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *ptr = get_ptr();
     if (!ptr) return 1;
 

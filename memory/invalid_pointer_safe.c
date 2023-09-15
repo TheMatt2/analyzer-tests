@@ -12,10 +12,7 @@
 
 int *ptr = (int *) 0x12345678;
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *tmp_ptr = malloc(sizeof(int));
     if (!tmp_ptr) {
         perror("malloc");

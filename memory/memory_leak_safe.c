@@ -21,10 +21,7 @@
 #include <alloca.h>
 #endif
 
-int main(int argc, char *argv[]) {
-    (void) argc;
-    (void) argv;
-
+int main(void) {
     int *ptr = alloca(sizeof(int));
     *ptr = 10;
 
