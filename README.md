@@ -88,7 +88,7 @@
 
  - CLion 2023.2 9 / 29 (31%)
 
- - GCC 13.2.0 17 / 29 (59%)
+ - GCC 13.2.0 18 / 29 (62%)
    - String Literal Modify
    - Switch Fall Through
 
@@ -96,7 +96,7 @@
 
  - icx 2023.1.0 15 / 29 (52%)
 
- - msvc v19.37 10 / 29 (34%)
+ - msvc v19.37 11 / 29 (38%)
    - Printf String Overflow
 
  - clang-tidy 15 / 29 (52%)
