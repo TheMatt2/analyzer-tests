@@ -1,0 +1,6 @@
+- import: codeql-suites/cpp-security-and-quality.qls
+  from: codeql/cpp-queries
+- exclude:
+    id:
+      - cpp/fixme-comment
+      - cpp/short-global-name

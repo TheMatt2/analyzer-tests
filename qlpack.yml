@@ -1,0 +1,6 @@
+library: false
+name: analyzer-tests
+dependencies:
+  codeql/cpp-all: "*"
+  codeql/suite-helpers: "*"
+extractor: cpp

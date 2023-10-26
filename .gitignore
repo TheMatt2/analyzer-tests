@@ -7,3 +7,7 @@
 # Compiled binaries
 *_safe
 *_unsafe
+
+# CodeQL
+_codeql*
+codeql_scan
