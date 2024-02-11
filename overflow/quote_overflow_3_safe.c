@@ -20,11 +20,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Convert byte to characters \xAB -> 0xAB
-#define CHAR_HEX_UPPER(b) ((char) (((b) & 0xf0) >> 4) + '0')
-#define CHAR_HEX_LOWER(b) ((char) ((b) & 0x0f) + '0')
+/* Num to hex 0-9a-f
+ * 0-9 are represented as the base 10 number
+ * 10-15 are represented by a-f
+ */
+#define TO_HEX(b) (unsigned char) ( \
+    ((b) & 0x0f) < 10 ?             \
+    ((b) & 0x0f) + '0':             \
+    ((b) & 0x0f) + 'a' - 10)
 
-char msg[] = "\1\2\3\4";
+char msg[] = "\1\2\3\4\xFF\n";
 
 /* Quote a string
  *
@@ -76,13 +81,13 @@ void quote_s(const char *const str, size_t length, char *const buf) {
 
             // replace backslash notation (ANSI C89)
             switch (c) {
-                case '\a': escape = 'a';  break;
-                case '\b': escape = 'b';  break;
-                case '\f': escape = 'f';  break;
-                case '\n': escape = 'n';  break;
-                case '\r': escape = 'r';  break;
-                case '\t': escape = 't';  break;
-                case '\v': escape = 'v';  break;
+                case '\a': escape = 'a' ; break;
+                case '\b': escape = 'b' ; break;
+                case '\f': escape = 'f' ; break;
+                case '\n': escape = 'n' ; break;
+                case '\r': escape = 'r' ; break;
+                case '\t': escape = 't' ; break;
+                case '\v': escape = 'v' ; break;
                 case '\'': escape = '\''; break;
                 case '\\': escape = '\\'; break;
                 case  '"': escape = '\"'; break;
@@ -101,9 +106,9 @@ void quote_s(const char *const str, size_t length, char *const buf) {
                 j++;
                 buf[j] = 'x';
                 j++;
-                buf[j] = CHAR_HEX_UPPER(c); // hex of most sig digit
+                buf[j] = TO_HEX(c >> 4); // hex of most sig digit
                 j++;
-                buf[j] = CHAR_HEX_LOWER(c); // hex of least sig digit
+                buf[j] = TO_HEX(c); // hex of least sig digit
                 j++;
             }
         }

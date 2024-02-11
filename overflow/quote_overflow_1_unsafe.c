@@ -28,7 +28,7 @@ typedef SSIZE_T ssize_t;
 #include <sys/types.h>
 #endif
 
-char msg[] = "\1\2\3\4";
+char msg[] = "\1\2\3\4\xFF\n";
 
 /* Quote a string
  *
@@ -98,13 +98,13 @@ ssize_t quote_s(const char *const str, size_t str_length,
 
             // replace backslash notation (ANSI C89)
             switch (c) {
-                case '\a': escape = 'a';  break;
-                case '\b': escape = 'b';  break;
-                case '\f': escape = 'f';  break;
-                case '\n': escape = 'n';  break;
-                case '\r': escape = 'r';  break;
-                case '\t': escape = 't';  break;
-                case '\v': escape = 'v';  break;
+                case '\a': escape = 'a' ; break;
+                case '\b': escape = 'b' ; break;
+                case '\f': escape = 'f' ; break;
+                case '\n': escape = 'n' ; break;
+                case '\r': escape = 'r' ; break;
+                case '\t': escape = 't' ; break;
+                case '\v': escape = 'v' ; break;
                 case '\'': escape = '\''; break;
                 case '\\': escape = '\\'; break;
                 case  '"': escape = '\"'; break;
